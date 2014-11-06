@@ -8,22 +8,32 @@
 
 import UIKit
 
-///@protocol IBOutlet UITextField
-
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     
     @IBOutlet var nameField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var profileDone: UIButton!
+    @IBOutlet var addCommentField: UITextField!
+    @IBOutlet var comment: UILabel!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        self.view.endEditing(true)
+    /*func tableView(tableView: UITableView!, numberOFRowsInSection section: Int) -> Int {
+        return commentMgr.comments.count
     }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Default")
+        cell.textLabel?.text = commentMgr.comments[indexPath.row].desc
+        return cell
+    }*/
+    
+    /*override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        self.view.endEditing(true)
+    }*/
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if sender as? NSObject != self.profileDone {
