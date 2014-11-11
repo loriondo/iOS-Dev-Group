@@ -17,23 +17,24 @@ class ViewController: UIViewController{
     @IBOutlet var addCommentField: UITextField!
     @IBOutlet var comment: UILabel!
     
+    @IBOutlet var venueNameField: UITextField!
+    @IBOutlet var openHourField: UITextField!
+    @IBOutlet var closeHourField: UITextField!
+    @IBOutlet var addVenueButton: UIButton!
+    @IBOutlet weak var venueLabel: UILabel!
+    @IBOutlet weak var openHourLabel: UILabel!
+    @IBOutlet weak var closeHourLabel: UILabel!
+    @IBOutlet var refreshButton: UIButton!
+    
+    var vname: String!
+    var vopen: String!
+    var vclose: String!
+    
+    //var venues: [String]
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
-    /*func tableView(tableView: UITableView!, numberOFRowsInSection section: Int) -> Int {
-        return commentMgr.comments.count
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Default")
-        cell.textLabel?.text = commentMgr.comments[indexPath.row].desc
-        return cell
-    }*/
-    
-    /*override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-        self.view.endEditing(true)
-    }*/
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if sender as? NSObject != self.profileDone {
@@ -50,9 +51,30 @@ class ViewController: UIViewController{
         }
     }
     
+    @IBAction func saveVenueAction(sender: AnyObject) {
+        vname = venueNameField.text
+        vopen = openHourField.text
+        vclose = closeHourField.text
+        //venues.append(venueNameField.text)
+        self.venueLabel.text = vname
+        //self.openHourLabel!.text = openHour
+        //self.closeHourLabel!.text = closeHour
+    }
+    
+    @IBAction func refresh(sender: AnyObject) {
+        venueLabel.text = vname
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        //self.venueLabel.text = "Redneck Rivieria"
+        //self.openHourLabel.text = "9:00am"
+        //self.closeHourLabel.text = "9:00pm"
+        
+        //self.venueNameField.placeholder = "Enter venue name here."
+        //self.openHourField.placeholder = "12:00am"
+        //self.closeHourField.placeholder = "12:00pm"
     }
 
     override func didReceiveMemoryWarning() {
