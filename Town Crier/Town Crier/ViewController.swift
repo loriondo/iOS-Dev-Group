@@ -8,32 +8,36 @@
 
 import UIKit
 
+let _venueSingleton = Venue()
+
 class ViewController: UIViewController{
     
     @IBOutlet var nameField: UITextField!
     @IBOutlet var emailField: UITextField!
     @IBOutlet var passwordField: UITextField!
     @IBOutlet var profileDone: UIButton!
-    @IBOutlet var addCommentField: UITextField!
-    @IBOutlet var comment: UILabel!
     
-    @IBOutlet var venueNameField: UITextField!
-    @IBOutlet var openHourField: UITextField!
-    @IBOutlet var closeHourField: UITextField!
-    @IBOutlet var addVenueButton: UIButton!
-    @IBOutlet weak var venueLabel: UILabel!
-    @IBOutlet weak var openHourLabel: UILabel!
-    @IBOutlet weak var closeHourLabel: UILabel!
-    @IBOutlet var refreshButton: UIButton!
+    @IBOutlet var commentField: UITextField!
+    @IBOutlet var commentLabel: UILabel!
+    
+    @IBOutlet private var venueNameField: UITextField!
+    @IBOutlet private var openHourField: UITextField!
+    @IBOutlet private var closeHourField: UITextField!
+    @IBOutlet private var addVenueButton: UIButton!
+    @IBOutlet private var descField: UITextField!
+    @IBOutlet private weak var venueLabel: UILabel!
+    @IBOutlet private weak var openHourLabel: UILabel!
+    @IBOutlet private weak var closeHourLabel: UILabel!
+    @IBOutlet private weak var descLabel: UILabel!
+    @IBOutlet private var refreshButton: UIButton!
     
     var vname: String!
     var vopen: String!
     var vclose: String!
     
-    //var venues: [String]
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        //print("initializing view")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -55,26 +59,35 @@ class ViewController: UIViewController{
         vname = venueNameField.text
         vopen = openHourField.text
         vclose = closeHourField.text
-        //venues.append(venueNameField.text)
-        self.venueLabel.text = vname
-        //self.openHourLabel!.text = openHour
-        //self.closeHourLabel!.text = closeHour
+        _venueSingleton.setVenueName(vname)
+        _venueSingleton.setOpenHour(vopen)
+        _venueSingleton.setCloseHour(vclose)
+        _venueSingleton.setDescription(descField.text)
     }
     
     @IBAction func refresh(sender: AnyObject) {
-        venueLabel.text = vname
+        venueLabel.text = _venueSingleton.getVenueName()
+    }
+    
+    @IBAction func addComment(sender: AnyObject) {
+        commentLabel.text = commentField.text
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        //self.venueLabel.text = "Redneck Rivieria"
-        //self.openHourLabel.text = "9:00am"
-        //self.closeHourLabel.text = "9:00pm"
         
-        //self.venueNameField.placeholder = "Enter venue name here."
-        //self.openHourField.placeholder = "12:00am"
-        //self.closeHourField.placeholder = "12:00pm"
+        if(venueLabel != nil){
+            venueLabel.text = _venueSingleton.getVenueName()
+        }
+        
+        if(openHourLabel != nil && closeHourLabel != nil){
+            openHourLabel.text = _venueSingleton.getOpenHour()
+            closeHourLabel.text = _venueSingleton.getCloseHour()
+        }
+        
+        if(descLabel != nil){
+            descLabel.text = _venueSingleton.getDescription()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,6 +95,69 @@ class ViewController: UIViewController{
         // Dispose of any resources that can be recreated.
     }
 
+}
+
+class Venue {
+    
+    private var vname: String
+    private var openHour: String
+    private var closeHour: String
+    private var description: String
+    
+    init(){
+        self.vname = "The Redneck Riviera"
+        self.openHour = "9:00am"
+        self.closeHour = "9:00pm"
+        self.description = "The Redneck Riviera is cool."
+    }
+    
+    func setVenueName(name: String) {
+        self.vname = name
+    }
+    
+    func getVenueName() -> String{
+        return vname
+    }
+    
+    func getOpenHour() -> String {
+        return self.openHour
+    }
+    
+    func setOpenHour(hour: String) {
+        self.openHour = hour
+    }
+    
+    func getCloseHour() -> String {
+        return self.closeHour
+    }
+    
+    func setCloseHour(hour: String) {
+        self.closeHour = hour
+    }
+    
+    func setDescription(desc: String) {
+        self.description = desc
+    }
+    
+    func getDescription() -> String {
+        return self.description
+    }
+}
+
+class Comment {
+    var comment: String
+    
+    init(comment: String) {
+        self.comment = comment
+    }
+    
+    func setComment(c: String) {
+        self.comment = c
+    }
+    
+    func getComment() -> String {
+        return self.comment
+    }
 }
 
 class Profile {
